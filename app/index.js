@@ -46,8 +46,13 @@ const App = () => {
     }
   };
 
+  const ocultarTeclado = ( ) =>{
+    Keyboard.dismiss()
+  }
+
   return (
     <>
+     <TouchableWithoutFeedback onPress={()=> ocultarTeclado()} >
       <View style={styles.contenedor}>
         {nombreStorage ? <Text> Hola: {nombreStorage} </Text> : null}
 
@@ -68,6 +73,7 @@ const App = () => {
           </TouchableHighlight>
         ) : null}
       </View>
+      </TouchableWithoutFeedback>
     </>
   );
 };

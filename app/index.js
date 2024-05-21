@@ -11,10 +11,9 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const App =  () => {
-
-  const [ inputTexto, guardarInputTexto] = useState('');
-  const [ nombreStorage, guardarNombreStorage] = useState('');
+const App = () => {
+  const [inputTexto, guardarInputTexto] = useState("");
+  const [nombreStorage, guardarNombreStorage] = useState("");
 
   useEffect(() => {
     obtenerDatosStorage();
@@ -22,57 +21,52 @@ const App =  () => {
 
   const guardarDatos = async () => {
     try {
-      await AsyncStorage.setItem('nombre',  inputTexto);
-      guardarNombreStorage(inputTexto)
+      await AsyncStorage.setItem("nombre", inputTexto);
+      guardarNombreStorage(inputTexto);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const obtenerDatosStorage = async () => {
     try {
-        const nombre = await AsyncStorage.getItem('nombre');
-        guardarNombreStorage(nombre)
+      const nombre = await AsyncStorage.getItem("nombre");
+      guardarNombreStorage(nombre);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const eliminarDatos = async () => {
     try {
-      await AsyncStorage.removeItem('nombre');
-      guardarNombreStorage('')
+      await AsyncStorage.removeItem("nombre");
+      guardarNombreStorage("");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <>
       <View style={styles.contenedor}>
-        { nombreStorage ? <Text> Hola: {nombreStorage} </Text> : null }
-          
+        {nombreStorage ? <Text> Hola: {nombreStorage} </Text> : null}
 
-          <TextInput 
-            placeholder="Escribe tu Nombre"
-            style={styles.input}
-            onChangeText={ texto => guardarInputTexto(texto) } 
-          />
+        <TextInput
+          placeholder="Escribe tu Nombre"
+          style={styles.input}
+          onChangeText={(texto) => guardarInputTexto(texto)}
+        />
 
-          <Button 
-            title="Guardar"
-            color='#333'
-            onPress={ () => guardarDatos() }
-          />
+        <Button title="Guardar" color="#333" onPress={() => guardarDatos()} />
 
-        { nombreStorage ? (
-          <TouchableHighlight 
-            onPress={ () => eliminarDatos() }
-            style={styles.btnEliminar}>
-              <Text style={styles.textoEliminar}>Eliminar Nombre &times;</Text>
+        {nombreStorage ? (
+          <TouchableHighlight
+            onPress={() => eliminarDatos()}
+            style={styles.btnEliminar}
+          >
+            <Text style={styles.textoEliminar}>Eliminar Nombre &times;</Text>
           </TouchableHighlight>
-        ) : null }
-  
+        ) : null}
       </View>
     </>
   );
